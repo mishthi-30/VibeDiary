@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard - VibeDiary</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <h1>Welcome, {{ username }}! 🌸</h1>
+
+    <p>This is your VibeDiary dashboard.</p>
+
+    <div class="dashboard-cards">
+
+        <div class="card">
+            <h2>📖 My Diary</h2>
+            <p>Write and manage your personal diary entries.</p>
+        </div>
+
+        <div class="card">
+            <h2>😊 Mood Tracking</h2>
+            <p>Record your mood and understand your patterns.</p>
+        </div>
+
+        <div class="card">
+            <h2>🔍 Smart Search</h2>
+            <p>Find your previous diary entries.</p>
+        </div>
+
+        <div class="card">
+            <h2>📊 Insights</h2>
+            <p>Discover patterns in your diary and mood history.</p>
+        </div>
+
+    </div>
+
+    <br>
+
+    <a href="{{ url_for('logout') }}">Logout</a>
+
+</div>
+
+</body>
+</html>

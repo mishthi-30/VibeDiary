@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Account - VibeDiary</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="auth-container">
+
+    <h1>Create Your Account ✨</h1>
+    <p>Start your private journaling journey.</p>
+
+    <form method="POST">
+
+        <input
+            type="text"
+            name="username"
+            placeholder="Choose a username"
+            required
+        >
+
+        <input
+            type="password"
+            name="password"
+            placeholder="Create a password"
+            required
+        >
+
+        <button type="submit">Create Account</button>
+
+    </form>
+
+    <p>
+        Already have an account?
+        <a href="{{ url_for('login') }}">Login</a>
+    </p>
+
+    <a href="{{ url_for('home') }}">← Back to Home</a>
+
+</div>
+
+</body>
+</html>

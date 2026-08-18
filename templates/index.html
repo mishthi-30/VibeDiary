@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>VibeDiary</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            VibeDiary
+        </div>
+
+        <div class="nav-buttons">
+            <a href="{{ url_for('login') }}">
+    <button>Login</button>
+</a>
+
+<a href="{{ url_for('register') }}">
+    <button>Create Account</button>
+</a>
+        </div>
+
+    </nav>
+
+
+    <section class="hero">
+
+        <h1>
+            Your Thoughts.
+            <span>Your Vibe.</span>
+        </h1>
+
+        <p>
+            VibeDiary is your personal digital diary where you can
+            record your thoughts, track your moods, remember your
+            special moments and understand yourself better.
+        </p>
+
+        <button class="start-button">
+            Start Your Journey
+        </button>
+
+    </section>
+
+
+    <section class="features">
+
+        <div class="feature-card">
+            <h3>📔 Digital Diary</h3>
+            <p>
+                Write and organize your personal thoughts and memories.
+            </p>
+        </div>
+
+        <div class="feature-card">
+            <h3>😊 Mood Tracking</h3>
+            <p>
+                Track your moods and understand your emotional patterns.
+            </p>
+        </div>
+
+        <div class="feature-card">
+            <h3>🔍 Smart Search</h3>
+            <p>
+                Quickly find your old diary entries.
+            </p>
+        </div>
+
+        <div class="feature-card">
+            <h3>📊 Insights</h3>
+            <p>
+                Discover patterns in your journaling and mood history.
+            </p>
+        </div>
+
+    </section>
+
+</body>
+
+</html>

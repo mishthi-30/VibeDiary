@@ -160,6 +160,25 @@ def create_entry():
     return render_template("create_entry.html")
 
 # =========================
+# View Diary Entries
+# =========================
+
+@app.route("/entries")
+def entries():
+
+    if "username" not in session:
+        return redirect(url_for("login"))
+
+    user_entries = DiaryEntry.query.filter_by(
+        username=session["username"]
+    ).order_by(DiaryEntry.created_at.desc()).all()
+
+    return render_template(
+        "entries.html",
+        entries=user_entries
+    )
+
+# =========================
 # Logout
 # =========================
 

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Diary | VibeDiary</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <div class="diary-container">
+
+        <h1>📖 My Diary</h1>
+
+        {% if entries %}
+
+            {% for entry in entries %}
+
+                <div class="diary-entry">
+
+                    <h2>{{ entry.title }}</h2>
+
+                    <p>
+                        <strong>Mood:</strong> {{ entry.mood }}
+                    </p>
+
+                    <p>
+                        {{ entry.content }}
+                    </p>
+
+                    <small>
+                        {{ entry.created_at }}
+                    </small>
+
+                </div>
+
+                <hr>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p>You haven't written any diary entries yet.</p>
+
+        {% endif %}
+
+        <br>
+
+        <a href="{{ url_for('create_entry') }}">
+            ✍️ Write New Entry
+        </a>
+
+        <br><br>
+
+        <a href="{{ url_for('dashboard') }}">
+            ← Back to Dashboard
+        </a>
+
+    </div>
+
+</body>
+
+</html>

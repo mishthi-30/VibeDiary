@@ -233,6 +233,7 @@ def delete_entry(entry_id):
     return redirect(url_for("entries"))
 
 
+
 # =========================
 # Logout
 # =========================

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Entry | VibeDiary</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <div class="diary-container">
+
+        <h1>✏️ Edit Diary Entry</h1>
+
+        <form method="POST">
+
+            <label for="title">Title</label>
+            <br>
+
+            <input
+                type="text"
+                id="title"
+                name="title"
+                value="{{ entry.title }}"
+                required
+            >
+
+            <br><br>
+
+            <label for="mood">Mood</label>
+            <br>
+
+            <select id="mood" name="mood" required>
+
+                <option value="Happy" {% if entry.mood == "Happy" %}selected{% endif %}>
+                    😊 Happy
+                </option>
+
+                <option value="Calm" {% if entry.mood == "Calm" %}selected{% endif %}>
+                    😌 Calm
+                </option>
+
+                <option value="Sad" {% if entry.mood == "Sad" %}selected{% endif %}>
+                    😔 Sad
+                </option>
+
+                <option value="Angry" {% if entry.mood == "Angry" %}selected{% endif %}>
+                    😡 Angry
+                </option>
+
+                <option value="Excited" {% if entry.mood == "Excited" %}selected{% endif %}>
+                    🤩 Excited
+                </option>
+
+                <option value="Anxious" {% if entry.mood == "Anxious" %}selected{% endif %}>
+                    😰 Anxious
+                </option>
+
+            </select>
+
+            <br><br>
+
+            <label for="content">Diary Entry</label>
+            <br>
+
+            <textarea
+                id="content"
+                name="content"
+                rows="10"
+                required
+            >{{ entry.content }}</textarea>
+
+            <br><br>
+
+            <button type="submit">
+                💾 Save Changes
+            </button>
+
+        </form>
+
+        <br>
+
+        <a href="{{ url_for('entries') }}">
+            ← Back to My Diary
+        </a>
+
+    </div>
+
+</body>
+
+</html>

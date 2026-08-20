@@ -179,6 +179,61 @@ def entries():
     )
 
 # =========================
+# Edit Diary Entry
+# =========================
+
+@app.route("/edit-entry/<int:entry_id>", methods=["GET", "POST"])
+def edit_entry(entry_id):
+
+    if "username" not in session:
+        return redirect(url_for("login"))
+
+    entry = DiaryEntry.query.filter_by(
+        id=entry_id,
+        username=session["username"]
+    ).first_or_404()
+
+    if request.method == "POST":
+
+        entry.title = request.form.get("title")
+        entry.content = request.form.get("content")
+        entry.mood = request.form.get("mood")
+
+        if not entry.title or not entry.content or not entry.mood:
+            return "Please fill in all fields."
+
+        db.session.commit()
+
+        return redirect(url_for("entries"))
+
+    return render_template(
+        "edit_entry.html",
+        entry=entry
+    )
+
+
+# =========================
+# Delete Diary Entry
+# =========================
+
+@app.route("/delete-entry/<int:entry_id>", methods=["POST"])
+def delete_entry(entry_id):
+
+    if "username" not in session:
+        return redirect(url_for("login"))
+
+    entry = DiaryEntry.query.filter_by(
+        id=entry_id,
+        username=session["username"]
+    ).first_or_404()
+
+    db.session.delete(entry)
+    db.session.commit()
+
+    return redirect(url_for("entries"))
+
+
+# =========================
 # Logout
 # =========================
 

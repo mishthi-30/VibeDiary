@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mood Insights | VibeDiary</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <div class="diary-container">
+
+        <h1>📊 Mood Insights</h1>
+
+        <p>See patterns in your diary moods.</p>
+
+        {% if mood_counts %}
+
+            <div style="max-width: 600px; margin: 30px auto;">
+                <canvas id="moodChart"></canvas>
+            </div>
+
+        {% else %}
+
+            <p>No mood data available yet. Write some diary entries first! 🌸</p>
+
+        {% endif %}
+
+        <br>
+
+        <a href="{{ url_for('dashboard') }}">
+            ← Back to Dashboard
+        </a>
+
+    </div>
+
+
+    {% if mood_counts %}
+
+    <script>
+
+        const moodLabels = {{ mood_counts.keys() | list | tojson }};
+        const moodData = {{ mood_counts.values() | list | tojson }};
+
+        new Chart(document.getElementById("moodChart"), {
+            type: "bar",
+
+            data: {
+                labels: moodLabels,
+
+                datasets: [{
+                    label: "Number of Entries",
+
+                    data: moodData,
+
+                    borderWidth: 1
+                }]
+            },
+
+            options: {
+                responsive: true,
+
+                plugins: {
+                    legend: {
+                        display: true
+                    }
+                },
+
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1
+                        }
+                    }
+                }
+            }
+        });
+
+    </script>
+
+    {% endif %}
+
+</body>
+
+</html><!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mood Insights | VibeDiary</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <div class="diary-container">
+
+        <h1>📊 Mood Insights</h1>
+
+        <p>See patterns in your diary moods.</p>
+
+        {% if mood_counts %}
+
+            <div style="max-width: 600px; margin: 30px auto;">
+                <canvas id="moodChart"></canvas>
+            </div>
+
+        {% else %}
+
+            <p>No mood data available yet. Write some diary entries first! 🌸</p>
+
+        {% endif %}
+
+        <br>
+
+        <a href="{{ url_for('dashboard') }}">
+            ← Back to Dashboard
+        </a>
+
+    </div>
+
+
+    {% if mood_counts %}
+
+    <script>
+
+        const moodLabels = {{ mood_counts.keys() | list | tojson }};
+        const moodData = {{ mood_counts.values() | list | tojson }};
+
+        new Chart(document.getElementById("moodChart"), {
+            type: "bar",
+
+            data: {
+                labels: moodLabels,
+
+                datasets: [{
+                    label: "Number of Entries",
+
+                    data: moodData,
+
+                    borderWidth: 1
+                }]
+            },
+
+            options: {
+                responsive: true,
+
+                plugins: {
+                    legend: {
+                        display: true
+                    }
+                },
+
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1
+                        }
+                    }
+                }
+            }
+        });
+
+    </script>
+
+    {% endif %}
+
+</body>
+
+</html>

@@ -114,18 +114,26 @@ def login():
 # =========================
 # Dashboard
 # =========================
-
 @app.route("/dashboard")
 def dashboard():
 
     if "username" not in session:
         return redirect(url_for("login"))
 
+    user_entries = DiaryEntry.query.filter_by(
+        username=session["username"]
+    ).all()
+
+    mood_counts = {}
+
+    for entry in user_entries:
+        mood_counts[entry.mood] = mood_counts.get(entry.mood, 0) + 1
+
     return render_template(
         "dashboard.html",
-        username=session["username"]
+        username=session["username"],
+        mood_counts=mood_counts
     )
-
 # =========================
 # Create Diary Entry
 # =========================
@@ -233,6 +241,59 @@ def delete_entry(entry_id):
     return redirect(url_for("entries"))
 
 
+# =========================
+# Mood Insights
+# =========================
+
+@app.route("/mood-insights")
+def mood_insights():
+
+    if "username" not in session:
+        return redirect(url_for("login"))
+
+    user_entries = DiaryEntry.query.filter_by(
+        username=session["username"]
+    ).all()
+
+    mood_counts = {}
+
+    for entry in user_entries:
+        mood_counts[entry.mood] = mood_counts.get(entry.mood, 0) + 1
+
+    return render_template(
+        "mood_insights.html",
+        mood_counts=mood_counts
+    )
+
+# =========================
+# Smart Search
+# =========================
+
+@app.route("/search")
+def search():
+
+    if "username" not in session:
+        return redirect(url_for("login"))
+
+    query = request.args.get("q", "").strip()
+
+    results = []
+
+    if query:
+        results = DiaryEntry.query.filter(
+            DiaryEntry.username == session["username"],
+            (
+                DiaryEntry.title.ilike(f"%{query}%") |
+                DiaryEntry.content.ilike(f"%{query}%") |
+                DiaryEntry.mood.ilike(f"%{query}%")
+            )
+        ).order_by(DiaryEntry.created_at.desc()).all()
+
+    return render_template(
+        "search.html",
+        query=query,
+        results=results
+    )
 
 # =========================
 # Logout

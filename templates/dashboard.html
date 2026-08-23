@@ -29,18 +29,42 @@
         </div>
 
         <div class="card">
-            <h2>😊 Mood Tracking</h2>
-            <p>Record your mood and understand your patterns.</p>
-        </div>
+    <h2>😊 Mood Tracking</h2>
 
-        <div class="card">
-            <h2>🔍 Smart Search</h2>
-            <p>Find your previous diary entries.</p>
+    {% if mood_counts %}
+
+        {% for mood, count in mood_counts.items() %}
+            <p>
+                <strong>{{ mood }}</strong> — {{ count }} entr{% if count == 1 %}y{% else %}ies{% endif %}
+            </p>
+        {% endfor %}
+
+    {% else %}
+
+        <p>No mood data yet. Start writing diary entries!</p>
+
+    {% endif %}
+
+</div>
+
+
+       <a href="{{ url_for('search') }}" style="text-decoration: none; color: inherit;">
+
+    <div class="card">
+        <h2>🔍 Smart Search</h2>
+        <p>Find your previous diary entries.</p>
+    </div>
+
+</a>
+
+</a>
         </div>
 
         <div class="card">
             <h2>📊 Insights</h2>
-            <p>Discover patterns in your diary and mood history.</p>
+           <a href="{{ url_for('mood_insights') }}">
+    <button type="button">📊 View Mood Insights</button>
+</a>
         </div>
 
     </div>

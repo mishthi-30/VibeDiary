@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Search | VibeDiary</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <div class="diary-container">
+
+        <h1>🔍 Smart Search</h1>
+
+        <p>Search through your diary memories.</p>
+
+        <form method="GET">
+
+            <input
+                type="text"
+                name="q"
+                value="{{ query }}"
+                placeholder="Search by title, thoughts, or mood..."
+            >
+
+            <button type="submit">
+                Search
+            </button>
+
+        </form>
+
+        <br>
+
+        {% if query %}
+
+            <h2>Results for "{{ query }}"</h2>
+
+            {% if results %}
+
+                {% for entry in results %}
+
+                    <div class="diary-entry">
+
+                        <h3>{{ entry.title }}</h3>
+
+                        <p>
+                            <strong>Mood:</strong>
+                            {{ entry.mood }}
+                        </p>
+
+                        <p>{{ entry.content }}</p>
+
+                        <small>
+                            {{ entry.created_at }}
+                        </small>
+
+                    </div>
+
+                    <hr>
+
+                {% endfor %}
+
+            {% else %}
+
+                <p>No matching diary entries found.</p>
+
+            {% endif %}
+
+        {% endif %}
+
+        <br>
+
+        <a href="{{ url_for('dashboard') }}">
+            ← Back to Dashboard
+        </a>
+
+    </div>
+
+</body>
+
+</html>

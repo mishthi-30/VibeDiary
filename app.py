@@ -295,6 +295,47 @@ def search():
         results=results
     )
 
+
+# =========================
+# Advanced Insights
+# =========================
+
+@app.route("/insights")
+def insights():
+
+    if "username" not in session:
+        return redirect(url_for("login"))
+
+    user_entries = DiaryEntry.query.filter_by(
+        username=session["username"]
+    ).order_by(DiaryEntry.created_at.desc()).all()
+
+    total_entries = len(user_entries)
+
+    mood_counts = {}
+
+    for entry in user_entries:
+        mood_counts[entry.mood] = mood_counts.get(entry.mood, 0) + 1
+
+    most_frequent_mood = None
+
+    if mood_counts:
+        most_frequent_mood = max(
+            mood_counts,
+            key=mood_counts.get
+        )
+
+    latest_entry = None
+
+    if user_entries:
+        latest_entry = user_entries[0]
+
+    return render_template(
+        "insights.html",
+        total_entries=total_entries,
+        most_frequent_mood=most_frequent_mood,
+        latest_entry=latest_entry
+    )
 # =========================
 # Logout
 # =========================

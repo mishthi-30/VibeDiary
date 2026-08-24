@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Insights | VibeDiary</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <div class="diary-container">
+
+        <h1>✨ Your Insights</h1>
+
+        {% if total_entries > 0 %}
+
+            <div class="card">
+
+                <h2>📝 Total Entries</h2>
+
+                <p>
+                    You have written
+                    <strong>{{ total_entries }}</strong>
+                    diary entries.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <h2>😊 Most Frequent Mood</h2>
+
+                <p>
+                    Your most frequently recorded mood is:
+
+                    <strong>{{ most_frequent_mood }}</strong>
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <h2>🕒 Latest Entry</h2>
+
+                <p>
+                    {{ latest_entry.title }}
+                </p>
+
+                <small>
+                    {{ latest_entry.created_at }}
+                </small>
+
+            </div>
+
+
+            <div class="card">
+
+                <h2>✨ Your Vibe Summary</h2>
+
+                <p>
+                    You've captured
+                    {{ total_entries }}
+                    memories in VibeDiary.
+
+                    Your most common mood has been
+                    <strong>{{ most_frequent_mood }}</strong>.
+
+                    Keep writing and discovering your patterns! 🌸
+                </p>
+
+            </div>
+
+        {% else %}
+
+            <p>
+                You haven't written any diary entries yet.
+                Start writing to unlock your insights! 🌸
+            </p>
+
+        {% endif %}
+
+        <br>
+
+        <a href="{{ url_for('dashboard') }}">
+            ← Back to Dashboard
+        </a>
+
+    </div>
+
+</body>
+
+</html>

@@ -13,19 +13,21 @@
 
     <p>This is your VibeDiary dashboard.</p>
 
-    <a href="{{ url_for('create_entry') }}">
-    <button type="button">✍️ Write New Entry</button>
-    </a>
-
-    <a href="{{ url_for('entries') }}">
-    <button type="button">📖 My Diary</button>
-</a>
+    
 
     <div class="dashboard-cards">
 
         <div class="card">
             <h2>📖 My Diary</h2>
             <p>Write and manage your personal diary entries.</p>
+
+            <a href="{{ url_for('create_entry') }}">
+    <button type="button">✍️ Write New Entry</button>
+    </a>
+
+    <a href="{{ url_for('entries') }}">
+    <button type="button">📖 My Diary</button>
+</a>
         </div>
 
         <div class="card">
@@ -50,6 +52,8 @@
 
        <a href="{{ url_for('search') }}" style="text-decoration: none; color: inherit;">
 
+        
+
     <div class="card">
         <h2>🔍 Smart Search</h2>
         <p>Find your previous diary entries.</p>
@@ -60,12 +64,16 @@
 </a>
         </div>
 
-        <div class="card">
-            <h2>📊 Insights</h2>
-           <a href="{{ url_for('mood_insights') }}">
+       <a href="{{ url_for('insights') }}" style="text-decoration: none; color: inherit;">
+
+    <div class="card">
+        <h2>📊 Insights</h2>
+       <a href="{{ url_for('mood_insights') }}">
     <button type="button">📊 View Mood Insights</button>
 </a>
-        </div>
+    </div>
+
+</a>
 
     </div>
 

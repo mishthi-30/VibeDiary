@@ -10,70 +10,64 @@
 <div class="dashboard">
 
     <h1>Welcome, {{ username }}! 🌸</h1>
-
     <p>This is your VibeDiary dashboard.</p>
-
-    
 
     <div class="dashboard-cards">
 
+        <!-- My Diary -->
         <div class="card">
             <h2>📖 My Diary</h2>
             <p>Write and manage your personal diary entries.</p>
 
-            <a href="{{ url_for('create_entry') }}">
-    <button type="button">✍️ Write New Entry</button>
-    </a>
+            <div class="card-buttons">
+                <a href="{{ url_for('create_entry') }}">
+                    <button type="button">✍️ Write New Entry</button>
+                </a>
 
-    <a href="{{ url_for('entries') }}">
-    <button type="button">📖 My Diary</button>
-</a>
+                <a href="{{ url_for('entries') }}">
+                    <button type="button">📖 My Diary</button>
+                </a>
+            </div>
         </div>
 
+
+        <!-- Mood Tracking -->
         <div class="card">
-    <h2>😊 Mood Tracking</h2>
+            <h2>😊 Mood Tracking</h2>
 
-    {% if mood_counts %}
+            <a href="{{ url_for('mood_insights') }}">
+                <button type="button">📊 View Mood Insights</button>
+            </a>
 
-        {% for mood, count in mood_counts.items() %}
-            <p>
-                <strong>{{ mood }}</strong> — {{ count }} entr{% if count == 1 %}y{% else %}ies{% endif %}
-            </p>
-        {% endfor %}
-
-    {% else %}
-
-        <p>No mood data yet. Start writing diary entries!</p>
-
-    {% endif %}
-
-</div>
-
-
-       <a href="{{ url_for('search') }}" style="text-decoration: none; color: inherit;">
-
-        
-
-    <div class="card">
-        <h2>🔍 Smart Search</h2>
-        <p>Find your previous diary entries.</p>
-    </div>
-
-</a>
-
-</a>
+            {% if mood_counts %}
+                {% for mood, count in mood_counts.items() %}
+                    <p>
+                        <strong>{{ mood }}</strong> —
+                        {{ count }} entr{% if count == 1 %}y{% else %}ies{% endif %}
+                    </p>
+                {% endfor %}
+            {% else %}
+                <p>No mood data yet. Start writing diary entries!</p>
+            {% endif %}
         </div>
 
-       <a href="{{ url_for('insights') }}" style="text-decoration: none; color: inherit;">
 
-    <div class="card">
-        <h2>📊 Insights</h2>
-       <a href="{{ url_for('mood_insights') }}">
-    <button type="button">📊 View Mood Insights</button>
-</a>
-    </div>
+        <!-- Smart Search -->
+        <a href="{{ url_for('search') }}" class="card-link">
+            <div class="card">
+                <h2>🔍 Smart Search</h2>
+                <p>Find your previous diary entries.</p>
+            </div>
+        </a>
 
-</a>
+
+        <!-- Insights -->
+        <a href="{{ url_for('insights') }}" class="card-link">
+            <div class="card">
+                <h2>📊 Insights</h2>
+                <p>Discover patterns in your diary and mood history.</p>
+            </div>
+        </a>
 
     </div>
 

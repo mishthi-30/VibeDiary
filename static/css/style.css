@@ -1,20 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+
+:root {
+    --primary: #8b6fc9;
+    --primary-dark: #6f55ad;
+    --lavender: #f5f0ff;
+    --pink: #fff0f6;
+    --white: #ffffff;
+    --text: #40394a;
+    --soft-text: #756d80;
+    --shadow: 0 12px 35px rgba(103, 78, 145, 0.12);
+}
+
 * {
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f7f3ff;
-    color: #333;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    background:
+        radial-gradient(circle at top left, #f1e8ff 0%, transparent 35%),
+        radial-gradient(circle at bottom right, #ffeaf3 0%, transparent 35%),
+        #faf8ff;
+    min-height: 100vh;
+    animation: pageFade 0.7s ease;
 }
+
+@keyframes pageFade {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-7px);
+    }
+}
+
+@keyframes softGlow {
+    0%, 100% {
+        box-shadow: 0 8px 20px rgba(139, 111, 201, 0.15);
+    }
+
+    50% {
+        box-shadow: 0 12px 35px rgba(139, 111, 201, 0.28);
+    }
+}
+
+/* =========================
+   NAVBAR
+========================= */
 
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 60px;
+    padding: 18px 8%;
     background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
 .logo {
@@ -31,11 +90,22 @@ body {
     border: 1px solid #6c4ab6;
     background: white;
     color: #6c4ab6;
+    font-size: 15px;
+    transition: 0.3s;
 }
+
+.nav-buttons button:hover {
+    background: #6c4ab6;
+    color: white;
+}
+
+/* =========================
+   HERO SECTION
+========================= */
 
 .hero {
     text-align: center;
-    padding: 100px 20px;
+    padding: 90px 20px 60px;
 }
 
 .hero h1 {
@@ -55,16 +125,33 @@ body {
     line-height: 1.6;
 }
 
+.start-button,
+button {
+    margin-top: 15px;
+    padding: 12px 22px;
+    border: none;
+    border-radius: 9px;
+    background: #6c4ab6;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
 .start-button {
     margin-top: 30px;
     padding: 15px 30px;
-    border: none;
-    border-radius: 10px;
-    background: #6c4ab6;
-    color: white;
-    font-size: 17px;
-    cursor: pointer;
 }
+
+button:hover,
+.start-button:hover {
+    background: #57389a;
+    transform: translateY(-2px);
+}
+
+/* =========================
+   FEATURE CARDS
+========================= */
 
 .features {
     display: flex;
@@ -81,8 +168,325 @@ body {
     border-radius: 15px;
     text-align: center;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    transition: 0.3s;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
 }
 
 .feature-card h3 {
     color: #6c4ab6;
+}
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.dashboard {
+    max-width: 1100px;
+    margin: 50px auto;
+    padding: 30px;
+    text-align: center;
+}
+
+.dashboard h1 {
+    color: #6c4ab6;
+    margin-bottom: 10px;
+}
+
+.dashboard > p {
+    color: #666;
+}
+
+.dashboard > a button {
+    margin: 20px 8px;
+}
+
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin-top: 35px;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.88);
+    padding: 30px;
+    border-radius: 22px;
+    min-height: 220px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    animation: pageFade 0.7s ease both;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 40px rgba(103, 78, 145, 0.18);
+}
+
+.card h2 {
+    color: #7258ab;
+}  text-align: left;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card h2 {
+    color: #6c4ab6;
+    margin-top: 0;
+}
+
+.card p {
+    line-height: 1.6;
+    color: #555;
+}
+
+/* =========================
+   FORMS
+========================= */
+
+input,
+textarea,
+select {
+    border: 1px solid #e4d9f3;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 14px;
+    padding: 14px;
+    transition: 0.3s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: #a27bd0;
+    box-shadow: 0 0 0 4px rgba(162, 123, 208, 0.12);
+    transform: translateY(-1px);
+}
+form {
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+label {
+    font-weight: bold;
+    color: #444;
+}
+
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: inherit;
+    outline: none;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: #6c4ab6;
+    box-shadow: 0 0 0 3px rgba(108, 74, 182, 0.1);
+}
+
+textarea {
+    resize: vertical;
+}
+
+/* =========================
+   DIARY PAGES
+========================= */
+
+
+.diary-entry {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 28px;
+    margin: 22px 0;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    border-left: 5px solid #b796d8;
+    transition: 0.3s ease;
+}
+
+.diary-entry:hover {
+    transform: translateX(5px);
+}
+.diary-container {
+    max-width: 850px;
+    margin: 50px auto;
+    padding: 35px;
+}
+
+.diary-container > h1 {
+    text-align: center;
+    color: #6c4ab6;
+    margin-bottom: 30px;
+}
+
+.diary-entry {
+    background: white;
+    padding: 25px;
+    margin: 20px 0;
+    border-radius: 15px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+}
+
+.diary-entry h2,
+.diary-entry h3 {
+    color: #6c4ab6;
+    margin-top: 0;
+}
+
+.diary-entry p {
+    line-height: 1.7;
+}
+
+.diary-entry small {
+    color: #888;
+}
+
+/* Links */
+
+a {
+    color: #6c4ab6;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Delete button */
+
+.diary-entry form {
+    display: inline;
+}
+
+.diary-entry form button {
+    background: #d9534f;
+    margin-left: 10px;
+}
+
+.diary-entry form button:hover {
+    background: #c9302c;
+}
+
+/* =========================
+   INSIGHTS
+========================= */
+
+canvas {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+}
+
+/* =========================
+   RESPONSIVE DESIGN
+========================= */
+
+@media (max-width: 768px) {
+
+    .navbar {
+        padding: 15px 20px;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .hero {
+        padding: 60px 20px;
+    }
+
+    .hero h1 {
+        font-size: 38px;
+    }
+
+    .hero p {
+        font-size: 17px;
+    }
+
+    .dashboard-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard {
+        margin: 25px auto;
+        padding: 20px;
+    }
+
+    .diary-container {
+        margin: 25px auto;
+        padding: 20px;
+    }
+
+    .feature-card {
+        width: 100%;
+        max-width: 320px;
+    }
+}
+
+.dashboard {
+    max-width: 1100px;
+    margin: auto;
+    padding: 40px;
+}
+
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    min-height: 220px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.card-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+button,
+.start-button {
+    border: none;
+    border-radius: 14px;
+    padding: 13px 22px;
+    background: linear-gradient(135deg, #8b6fc9, #b17bc8);
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    box-shadow: 0 8px 18px rgba(139, 111, 201, 0.22);
+}
+
+button:hover,
+.start-button:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 14px 28px rgba(139, 111, 201, 0.3);
+}
+
+button:active,
+.start-button:active {
+    transform: scale(0.97);
 }

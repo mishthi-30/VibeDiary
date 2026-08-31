@@ -1,109 +1,175 @@
-<script>
+<!DOCTYPE html>
+<html lang="en">
 
-    const moodLabels = {{ mood_counts.keys() | list | tojson }};
-    const moodData = {{ mood_counts.values() | list | tojson }};
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    const isDarkMode = document.body.classList.contains("dark-mode");
+    <title>Mood Insights | VibeDiary</title>
 
-    const textColor = isDarkMode ? "#f5f0ff" : "#40394a";
-    const gridColor = isDarkMode
-        ? "rgba(255,255,255,0.12)"
-        : "rgba(103,78,145,0.12)";
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
 
-    new Chart(document.getElementById("moodChart"), {
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
 
-        type: "bar",
+<body>
 
-        data: {
+    <div class="diary-container">
 
-            labels: moodLabels,
+        <h1>📊 Mood Insights</h1>
 
-            datasets: [{
+        <p>See patterns in your diary moods.</p>
 
-                label: "Number of Entries",
+        {% if mood_counts %}
 
-                data: moodData,
+            <div style="max-width: 700px; margin: 40px auto;">
+                <canvas id="moodChart"></canvas>
+            </div>
 
-                backgroundColor: [
-                    "#8b6fc9",
-                    "#d84fa0",
-                    "#9b7ed8",
-                    "#c48ad8",
-                    "#7656b5",
-                    "#b86ca8"
-                ],
+        {% else %}
 
-                borderColor: "#8b6fc9",
+            <div class="card">
+                <h2>🌸 No Mood Data Yet</h2>
+                <p>
+                    Write some diary entries and record how you're feeling
+                    to see your mood insights here.
+                </p>
+            </div>
 
-                borderWidth: 1,
+        {% endif %}
 
-                borderRadius: 8
+        <br>
 
-            }]
+        <a href="{{ url_for('dashboard') }}">
+            ← Back to Dashboard
+        </a>
 
-        },
+    </div>
 
-        options: {
 
-            responsive: true,
+    {% if mood_counts %}
 
-            plugins: {
+    <script>
 
-                legend: {
+        const moodLabels = {{ mood_counts.keys() | list | tojson }};
+        const moodData = {{ mood_counts.values() | list | tojson }};
 
-                    display: true,
+        const isDarkMode =
+            document.body.classList.contains("dark-mode");
 
-                    labels: {
+        const textColor =
+            isDarkMode ? "#f5f0ff" : "#40394a";
 
-                        color: textColor,
+        const gridColor =
+            isDarkMode
+                ? "rgba(255,255,255,0.12)"
+                : "rgba(103,78,145,0.12)";
 
-                        font: {
-                            family: "DM Sans"
+
+        new Chart(document.getElementById("moodChart"), {
+
+            type: "bar",
+
+            data: {
+
+                labels: moodLabels,
+
+                datasets: [{
+
+                    label: "Number of Entries",
+
+                    data: moodData,
+
+                    backgroundColor: [
+                        "#8b6fc9",
+                        "#d84fa0",
+                        "#9b7ed8",
+                        "#c48ad8",
+                        "#7656b5",
+                        "#b86ca8"
+                    ],
+
+                    borderColor: "#8b6fc9",
+
+                    borderWidth: 1,
+
+                    borderRadius: 8
+
+                }]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                plugins: {
+
+                    legend: {
+
+                        display: true,
+
+                        labels: {
+
+                            color: textColor,
+
+                            font: {
+                                family: "DM Sans"
+                            }
+
+                        }
+
+                    }
+
+                },
+
+                scales: {
+
+                    x: {
+
+                        ticks: {
+                            color: textColor
+                        },
+
+                        grid: {
+                            color: gridColor
+                        }
+
+                    },
+
+                    y: {
+
+                        beginAtZero: true,
+
+                        ticks: {
+
+                            stepSize: 1,
+
+                            color: textColor
+
+                        },
+
+                        grid: {
+                            color: gridColor
                         }
 
                     }
 
                 }
 
-            },
-
-            scales: {
-
-                x: {
-
-                    ticks: {
-                        color: textColor
-                    },
-
-                    grid: {
-                        color: gridColor
-                    }
-
-                },
-
-                y: {
-
-                    beginAtZero: true,
-
-                    ticks: {
-
-                        stepSize: 1,
-
-                        color: textColor
-
-                    },
-
-                    grid: {
-                        color: gridColor
-                    }
-
-                }
-
             }
 
-        }
+        });
 
-    });
+    </script>
 
-</script>
-<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    {% endif %}
+
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+
+</html>

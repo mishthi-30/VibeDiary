@@ -1,39 +1,22 @@
-document.addEventListener("DOMContentLoaded", function () {
+@app.route("/mood-insights")
+def mood_insights():
 
-    const darkModeButton = document.getElementById("darkModeToggle");
+    if "username" not in session:
+        return redirect(url_for("login"))
 
-    // Apply saved theme when page loads
-    const savedTheme = localStorage.getItem("theme");
+    username = session["username"]
 
-    if (savedTheme === "dark") {
-        document.body.classList.add("dark-mode");
+    entries = DiaryEntry.query.filter_by(
+        username=username
+    ).all()
 
-        if (darkModeButton) {
-            darkModeButton.innerHTML = "☀️ Light Mode";
-        }
-    }
+    mood_counts = {}
 
-    // Dark mode button
-    if (darkModeButton) {
+    for entry in entries:
+        if entry.mood:
+            mood_counts[entry.mood] = mood_counts.get(entry.mood, 0) + 1
 
-        darkModeButton.addEventListener("click", function () {
-
-            document.body.classList.toggle("dark-mode");
-
-            if (document.body.classList.contains("dark-mode")) {
-
-                localStorage.setItem("theme", "dark");
-                darkModeButton.innerHTML = "☀️ Light Mode";
-
-            } else {
-
-                localStorage.setItem("theme", "light");
-                darkModeButton.innerHTML = "🌙 Dark Mode";
-
-            }
-
-        });
-
-    }
-
-});
+    return render_template(
+        "mood_insights.html",
+        mood_counts=mood_counts
+    )

@@ -10,10 +10,14 @@
 <div class="dashboard">
 
     <h1>Welcome, {{ username }}! 🌸</h1>
+
     <p>This is your VibeDiary dashboard.</p>
 
-    <div class="dashboard-cards">
+    <button id="theme-toggle" class="theme-button">
+        🌙 Dark Mode
+    </button>
 
+    <div class="dashboard-cards">
         <!-- My Diary -->
         <div class="card">
             <h2>📖 My Diary</h2>
@@ -74,6 +78,7 @@
     <br>
 
     <a href="{{ url_for('logout') }}">Logout</a>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 </div>
 

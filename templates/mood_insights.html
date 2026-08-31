@@ -1,93 +1,109 @@
-<!DOCTYPE html>
-<html lang="en">
+<script>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    const moodLabels = {{ mood_counts.keys() | list | tojson }};
+    const moodData = {{ mood_counts.values() | list | tojson }};
 
-    <title>Mood Insights | VibeDiary</title>
+    const isDarkMode = document.body.classList.contains("dark-mode");
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/style.css') }}">
+    const textColor = isDarkMode ? "#f5f0ff" : "#40394a";
+    const gridColor = isDarkMode
+        ? "rgba(255,255,255,0.12)"
+        : "rgba(103,78,145,0.12)";
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
+    new Chart(document.getElementById("moodChart"), {
 
-<body>
+        type: "bar",
 
-    <div class="diary-container">
+        data: {
 
-        <h1>📊 Mood Insights</h1>
+            labels: moodLabels,
 
-        <p>See patterns in your diary moods.</p>
+            datasets: [{
 
-        {% if mood_counts %}
+                label: "Number of Entries",
 
-            <div style="max-width: 600px; margin: 30px auto;">
-                <canvas id="moodChart"></canvas>
-            </div>
+                data: moodData,
 
-        {% else %}
+                backgroundColor: [
+                    "#8b6fc9",
+                    "#d84fa0",
+                    "#9b7ed8",
+                    "#c48ad8",
+                    "#7656b5",
+                    "#b86ca8"
+                ],
 
-            <p>No mood data available yet. Write some diary entries first! 🌸</p>
+                borderColor: "#8b6fc9",
 
-        {% endif %}
+                borderWidth: 1,
 
-        <br>
+                borderRadius: 8
 
-        <a href="{{ url_for('dashboard') }}">
-            ← Back to Dashboard
-        </a>
+            }]
 
-    </div>
+        },
 
+        options: {
 
-    {% if mood_counts %}
+            responsive: true,
 
-    <script>
+            plugins: {
 
-        const moodLabels = {{ mood_counts.keys() | list | tojson }};
-        const moodData = {{ mood_counts.values() | list | tojson }};
+                legend: {
 
-        new Chart(document.getElementById("moodChart"), {
-            type: "bar",
+                    display: true,
 
-            data: {
-                labels: moodLabels,
+                    labels: {
 
-                datasets: [{
-                    label: "Number of Entries",
+                        color: textColor,
 
-                    data: moodData,
+                        font: {
+                            family: "DM Sans"
+                        }
 
-                    borderWidth: 1
-                }]
+                    }
+
+                }
+
             },
 
-            options: {
-                responsive: true,
+            scales: {
 
-                plugins: {
-                    legend: {
-                        display: true
+                x: {
+
+                    ticks: {
+                        color: textColor
+                    },
+
+                    grid: {
+                        color: gridColor
                     }
+
                 },
 
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            stepSize: 1
-                        }
+                y: {
+
+                    beginAtZero: true,
+
+                    ticks: {
+
+                        stepSize: 1,
+
+                        color: textColor
+
+                    },
+
+                    grid: {
+                        color: gridColor
                     }
+
                 }
+
             }
-        });
 
-    </script>
+        }
 
-    {% endif %}
+    });
 
-</body>
-
-</html>
+</script>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>

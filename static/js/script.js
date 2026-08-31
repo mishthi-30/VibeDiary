@@ -1,22 +1,39 @@
-@app.route("/mood-insights")
-def mood_insights():
+document.addEventListener("DOMContentLoaded", function () {
 
-    if "username" not in session:
-        return redirect(url_for("login"))
+    const themeToggle = document.getElementById("theme-toggle");
 
-    username = session["username"]
+    // Load saved theme
+    const savedTheme = localStorage.getItem("theme");
 
-    entries = DiaryEntry.query.filter_by(
-        username=username
-    ).all()
+    if (savedTheme === "dark") {
+        document.body.classList.add("dark-mode");
 
-    mood_counts = {}
+        if (themeToggle) {
+            themeToggle.textContent = "☀️ Light Mode";
+        }
+    }
 
-    for entry in entries:
-        if entry.mood:
-            mood_counts[entry.mood] = mood_counts.get(entry.mood, 0) + 1
+    // Toggle theme
+    if (themeToggle) {
 
-    return render_template(
-        "mood_insights.html",
-        mood_counts=mood_counts
-    )
+        themeToggle.addEventListener("click", function () {
+
+            document.body.classList.toggle("dark-mode");
+
+            if (document.body.classList.contains("dark-mode")) {
+
+                localStorage.setItem("theme", "dark");
+                themeToggle.textContent = "☀️ Light Mode";
+
+            } else {
+
+                localStorage.setItem("theme", "light");
+                themeToggle.textContent = "🌙 Dark Mode";
+
+            }
+
+        });
+
+    }
+
+});
